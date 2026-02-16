@@ -1,6 +1,6 @@
 import { test } from '../../../fixtures/enterpriseFixtures.js';
 import EnterpriseAddInvoicePage from '../../../pageObjects/enterprise/companySetting/enterpriseAddInvoice.po.js';
-import addNewInvoiceData from '../../../testData/enterprise/enterpriseCompanySettings/AddNewInvoiceData.json' with { type: 'json' };
+import jobNumberData from '../../../testData/enterprise/commonJobNumber.json' with { type: 'json' };
 import { searchJobNumber } from '../../../utils/searchJobNumber.js';
 
 test('Add New Record in Invoices Detail', async ({ authenticatedPage }) => {
@@ -10,26 +10,25 @@ test('Add New Record in Invoices Detail', async ({ authenticatedPage }) => {
   const addInvoicePage = new EnterpriseAddInvoicePage(page);
 
   // Search for job by number
-  await searchJobNumber(page, addNewInvoiceData.jobNumber);
+  await searchJobNumber(page, jobNumberData.jobNumber);
 
   // Wait for Acct. Details image to be visible and click it
   await addInvoicePage.waitAndClickAcctDetailsImg();
 
   // Verify job number is displayed correctly
-  await addInvoicePage.assertJobNumberContains(addNewInvoiceData.jobNumber);
+  await addInvoicePage.assertJobNumberContains(jobNumberData.jobNumber);
 
   // Click Invoice Details button
   await addInvoicePage.clickInvoiceDetailsButton();
 
   // Verify invoice details job number
-  await addInvoicePage.assertInvoiceDetailsJobNumber(addNewInvoiceData.jobNumber);
+  await addInvoicePage.assertInvoiceDetailsJobNumber(jobNumberData.jobNumber);
 
   // Click Add New Invoice button
   await addInvoicePage.clickAddNewInvoiceButton();
 
   // Verify Invoice Memo label is visible
   await addInvoicePage.assertInvoiceMemoLabelVisible();
-
 
   // Verify Additional Info label is visible
   await addInvoicePage.assertAdditionalInfoLabelVisible();

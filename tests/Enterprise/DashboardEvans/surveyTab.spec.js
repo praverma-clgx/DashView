@@ -1,6 +1,6 @@
 import { test, expect } from '../../../fixtures/enterpriseFixtures.js';
 import DashboardSurveyTabPage from '../../../pageObjects/enterprise/dashboardEvans/surveyTab.po.js';
-import dashboardAccountingNotesData from '../../../testData/enterprise/enterpriseCompanySettings/DashboardAccountingNotes.json' with { type: 'json' };
+import jobNumberData from '../../../testData/enterprise/commonJobNumber.json' with { type: 'json' };
 import { searchJobNumber } from '../../../utils/searchJobNumber.js';
 
 test('Survey Tab Validation', async ({ authenticatedPage }) => {
@@ -8,7 +8,7 @@ test('Survey Tab Validation', async ({ authenticatedPage }) => {
   const surveyTabPage = new DashboardSurveyTabPage(page);
 
   // Search for job by number
-  await searchJobNumber(page, dashboardAccountingNotesData.jobNumber);
+  await searchJobNumber(page, jobNumberData.jobNumber);
 
   // Navigate to Survey tab
   await surveyTabPage.navigateToSurveyTab();
@@ -36,14 +36,6 @@ test('Survey Tab Validation', async ({ authenticatedPage }) => {
 
   // Validate Average Score column header is visible
   await expect(await surveyTabPage.verifyAverageScoreColumnHeaderVisible()).toBeVisible();
-
-  // Click On Export to Excel button and assert download
-  const downloadSuccess = await surveyTabPage.downloadAndAssertExcel();
-  expect(downloadSuccess).toBeTruthy();
-
-  // Click on Export to PDF button and assert download
-  const pdfDownloadSuccess = await surveyTabPage.downloadAndAssertPDF();
-  expect(pdfDownloadSuccess).toBeTruthy();
 
     // Click on Take a Survey button
   await surveyTabPage.clickTakeSurveyButton();

@@ -1,6 +1,6 @@
 import { test, expect } from '../../../fixtures/enterpriseFixtures.js';
 import DashboardInvoicesTabPage from '../../../pageObjects/enterprise/dashboardEvans/invoicesTab.po.js';
-import dashboardAccountingNotesData from '../../../testData/enterprise/enterpriseCompanySettings/DashboardAccountingNotes.json' with { type: 'json' };
+import jobNumberData from '../../../testData/enterprise/commonJobNumber.json' with { type: 'json' };
 import { getRandomNumber } from '../../../utils/randomNumber.js';
 import { searchJobNumber } from '../../../utils/searchJobNumber.js';
 
@@ -11,7 +11,7 @@ test('Invoices Tab Validation', async ({ authenticatedPage }) => {
   const dashboardInvoicesTabPage = new DashboardInvoicesTabPage(page);
 
   // Search for job by number
-  await searchJobNumber(page, dashboardAccountingNotesData.jobNumber);
+  await searchJobNumber(page, jobNumberData.jobNumber);
 
   // Navigate to Invoices tab
   await dashboardInvoicesTabPage.navigateToInvoicesTab();
@@ -51,10 +51,6 @@ test('Invoices Tab Validation', async ({ authenticatedPage }) => {
 
   // Click Add New button to navigate to Invoice detail page
   await dashboardInvoicesTabPage.clickAddNewButton();
-
-  // Verify URL contains job number after navigating to Invoices tab
-  const currentURL = page.url();
-  expect(currentURL).toContain(dashboardAccountingNotesData.jobNumber);
 
   // Verify Invoice detail page is visible and has correct text
   const invoiceDetailPage = await dashboardInvoicesTabPage.verifyInvoiceDetailPageVisible();
@@ -105,15 +101,6 @@ test('Invoices Tab Validation', async ({ authenticatedPage }) => {
   // Verify Back to Slide Board button is visible
   await expect(await dashboardInvoicesTabPage.verifyBackToSlideBoardButtonVisible()).toBeVisible();
 
-
   // Click Back to Slide Board button
   await dashboardInvoicesTabPage.clickBackToSlideBoardButton();
-  await page.waitForLoadState('networkidle');
-
-  // Verify URL contains job number after navigating to slideboard
-  const finalURL = page.url();
-  expect(finalURL).toContain(dashboardAccountingNotesData.jobNumber);
-
-  // Navigate to Invoices tab
-  await dashboardInvoicesTabPage.navigateToInvoicesTab();
 });

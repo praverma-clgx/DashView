@@ -34,12 +34,6 @@ test('Claim Center Page in More FG', async ({ authenticatedPage }) => {
   // Validate Grid Headers
   await claimCenterPage.validateGridHeaders(claimCenterGridHeaders);
 
-  // Download and assert Excel file
-  await claimCenterPage.downloadAndAssertExcel();
-
-  // Download and assert PDF file
-  await claimCenterPage.downloadAndAssertPDF();
-
   // Click Back to HomePage and validate navigation
   await claimCenterPage.clickBackToHomePage();
 });

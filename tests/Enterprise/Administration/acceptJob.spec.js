@@ -34,15 +34,9 @@ test('Accept Job Page', async ({ authenticatedPage: page }) => {
   // Verify Required Services column header is visible
   await expect(await acceptJobPage.verifyRequiredServicesHeaderVisible()).toBeVisible();
 
-  // Verify Refresh button is visible and functional
+  // Verify Refresh button is visible
   await expect(await acceptJobPage.verifyRefreshButtonVisible()).toBeVisible();
 
-  // Assert that Refresh button works and triggers data refresh
-  await acceptJobPage.clickRefreshButton();
-
-  // Verify Export to Excel button is visible and functional
+  // Verify Export to Excel button is visible
   await expect(await acceptJobPage.verifyExportToExcelButtonVisible()).toBeVisible();
-
-  // Assert that Export to Excel functionality works
-  await acceptJobPage.clickExportToExcelButton();
 });

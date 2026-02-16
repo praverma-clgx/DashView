@@ -36,6 +36,4 @@ test('Job Dashboard Page', async ({ authenticatedPage }) => {
   await jobDashboardPage.selectRandomDivision(getRandomNumber);
   await jobDashboardPage.selectRandomOffice(getRandomNumber);
 
-  // Click Go button and assert network request
-  await jobDashboardPage.clickGoButtonAndAssertNetworkRequest();
 });

@@ -1,6 +1,6 @@
 import { test } from '../../../fixtures/enterpriseFixtures.js';
 import EnterpriseEstimatePage from '../../../pageObjects/enterprise/companySetting/enterpriseEstimate.po.js';
-import estimatesValidationData from '../../../testData/enterprise/enterpriseCompanySettings/EstimatesValidationData.json' with { type: 'json' };
+import jobNumberData from '../../../testData/enterprise/commonJobNumber.json' with { type: 'json' };
 import { searchJobNumber } from '../../../utils/searchJobNumber.js';
 
 test('Estimate Validation', async ({ authenticatedPage }) => {
@@ -8,7 +8,7 @@ test('Estimate Validation', async ({ authenticatedPage }) => {
   const estimatePage = new EnterpriseEstimatePage(page);
 
   // Step 1: Search for job by number
-  await searchJobNumber(page, estimatesValidationData.jobNumber);
+  await searchJobNumber(page, jobNumberData.jobNumber);
 
   // Step 2: Navigate to accounting details
   await estimatePage.waitAndClickAcctDetailsImg();

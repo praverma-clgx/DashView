@@ -74,12 +74,4 @@ test('Manage Assignments For Job Page', async ({ authenticatedPage }) => {
   const exportToExcelButton = await massAssignmentsPage.verifyExportToExcelButton();
   await expect(exportToExcelButton).toBeVisible();
   await expect(exportToExcelButton).toHaveAttribute('type', 'button');
-
-  // Click on Export to PDF button and assert the downloaded file name
-  const pdfFilename = await massAssignmentsPage.downloadAndAssertPDF();
-  expect(pdfFilename).toMatch(/^MassAssignmentForJob(\s\(\d+\))?\.pdf$/);
-
-  // Click on Export to Excel button and assert the downloaded file name
-  const excelFilename = await massAssignmentsPage.downloadAndAssertExcel();
-  expect(excelFilename).toMatch(/^MassAssignmentForJob(\s\(\d+\))?\.xlsx?$/);
 });

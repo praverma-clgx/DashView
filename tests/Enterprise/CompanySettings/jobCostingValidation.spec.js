@@ -1,6 +1,6 @@
 import { test } from '../../../fixtures/enterpriseFixtures.js';
 import EnterpriseJobCostingPage from '../../../pageObjects/enterprise/companySetting/enterpriseJobCosting.po.js';
-import jobCostingValidationData from '../../../testData/enterprise/enterpriseCompanySettings/JobCostingValidationData.json' with { type: 'json' };
+import jobNumberData from '../../../testData/enterprise/commonJobNumber.json' with { type: 'json' };
 import { searchJobNumber } from '../../../utils/searchJobNumber.js';
 
 test('Job Costing Validation', async ({ authenticatedPage }) => {
@@ -8,7 +8,7 @@ test('Job Costing Validation', async ({ authenticatedPage }) => {
   const jobCostingPage = new EnterpriseJobCostingPage(page);
 
   // Step 1: Search for job by number
-  await searchJobNumber(page, jobCostingValidationData.jobNumber);
+  await searchJobNumber(page, jobNumberData.jobNumber);
 
   // Step 2: Navigate to accounting details
   await jobCostingPage.waitAndClickAcctDetailsImg();

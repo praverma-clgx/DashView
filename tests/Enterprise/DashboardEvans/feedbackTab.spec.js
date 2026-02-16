@@ -1,6 +1,6 @@
 import { test } from '../../../fixtures/enterpriseFixtures.js';
 import FeedbackTabPage from '../../../pageObjects/enterprise/dashboardEvans/feedbackTab.po.js';
-import dashboardAccountingNotesData from '../../../testData/enterprise/enterpriseCompanySettings/DashboardAccountingNotes.json' with { type: 'json' };
+import jobNumberData from '../../../testData/enterprise/commonJobNumber.json' with { type: 'json' };
 import { searchJobNumber } from '../../../utils/searchJobNumber.js';
 
 test('Feedback Tab Validation', async ({ authenticatedPage }) => {
@@ -8,7 +8,7 @@ test('Feedback Tab Validation', async ({ authenticatedPage }) => {
   const feedbackTabPage = new FeedbackTabPage(page);
 
   // Search for job by number
-  await searchJobNumber(page, dashboardAccountingNotesData.jobNumber);
+  await searchJobNumber(page, jobNumberData.jobNumber);
 
   // Navigate to Feedback tab
   await feedbackTabPage.navigateToFeedbackTab();

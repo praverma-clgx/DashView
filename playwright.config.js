@@ -91,12 +91,17 @@ export default defineConfig({
   /* Global teardown - browser closes automatically after all tests */
   projects: [
     {
+      name: 'setup-job-number',
+      testMatch: 'tests/Enterprise/00_Setup_JobNumber/getJobNumber.spec.js',
+      fullyParallel: false, // Run setup test sequentially
+      retries: 1,
+    },
+    {
       name: 'enterprise-chromium',
       testMatch: '**/Enterprise/**/*.spec.js',
-      testIgnore: [
-        '**/Enterprise/CloseAndDeleteJobAndClaim/**',
-      ],
+      testIgnore: 'tests/Enterprise/00_Setup_JobNumber/getJobNumber.spec.js',
       fullyParallel: true, // Run tests in parallel
+      dependencies: ['setup-job-number'],
       use: {
         storageState: '.auth/enterprise.json',
       },

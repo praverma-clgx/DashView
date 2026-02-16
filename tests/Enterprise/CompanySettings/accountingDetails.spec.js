@@ -1,6 +1,6 @@
 import { test } from '../../../fixtures/enterpriseFixtures.js';
 import EnterpriseAccountingDetailsPage from '../../../pageObjects/enterprise/companySetting/enterpriseAccountingDetails.po.js';
-import accountingDetailsData from '../../../testData/enterprise/enterpriseCompanySettings/AccountingDetailsData.json' with { type: 'json' };
+import jobNumberData from '../../../testData/enterprise/commonJobNumber.json' with { type: 'json' };
 import { searchJobNumber } from '../../../utils/searchJobNumber.js';
 
 test('Accounting Report Page Validation', async ({ authenticatedPage }) => {
@@ -10,10 +10,10 @@ test('Accounting Report Page Validation', async ({ authenticatedPage }) => {
   const accountingDetailsPage = new EnterpriseAccountingDetailsPage(page);
 
   // Search for job by number
-  await searchJobNumber(page, accountingDetailsData.jobNumber);
+  await searchJobNumber(page, jobNumberData.jobNumber);
 
   // Verify URL contains the job number (case-insensitive)
-  await accountingDetailsPage.assertUrlContainsJobNumber(accountingDetailsData.jobNumberLowerCase);
+  await accountingDetailsPage.assertUrlContainsJobNumber(jobNumberData.jobNumber.toLowerCase());
 
   // Verify that all Options of Accounting headers are visible
   await accountingDetailsPage.assertAllAccountingHeaderOptionsVisible();
@@ -22,7 +22,7 @@ test('Accounting Report Page Validation', async ({ authenticatedPage }) => {
   await accountingDetailsPage.waitAndClickAcctDetailsImg();
 
   // Verify URL contains the job number (case-insensitive)
-  await accountingDetailsPage.assertUrlContainsJobNumber(accountingDetailsData.jobNumberLowerCase);
+  await accountingDetailsPage.assertUrlContainsJobNumber(jobNumberData.jobNumber.toLowerCase());
 
   // Wait for accounting report button to be visible and click it
   await accountingDetailsPage.waitAndClickAccountingReportButton();

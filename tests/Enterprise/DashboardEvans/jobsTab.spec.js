@@ -1,6 +1,6 @@
 import { test, expect } from '../../../fixtures/enterpriseFixtures.js';
 import DashboardJobsTabPage from '../../../pageObjects/enterprise/dashboardEvans/jobsTab.po.js';
-import dashboardAccountingNotesData from '../../../testData/enterprise/enterpriseCompanySettings/DashboardAccountingNotes.json' with { type: 'json' };
+import jobNumberData from '../../../testData/enterprise/commonJobNumber.json' with { type: 'json' };
 import { searchJobNumber } from '../../../utils/searchJobNumber.js';
 
 test('Jobs Tab Validation', async ({ authenticatedPage }) => {
@@ -8,7 +8,7 @@ test('Jobs Tab Validation', async ({ authenticatedPage }) => {
   const jobsTabPage = new DashboardJobsTabPage(page);
 
   // Search for job by number
-  await searchJobNumber(page, dashboardAccountingNotesData.jobNumber);
+  await searchJobNumber(page, jobNumberData.jobNumber);
 
   // Navigate to Job Tasks tab
   await jobsTabPage.navigateToJobTasksTab();

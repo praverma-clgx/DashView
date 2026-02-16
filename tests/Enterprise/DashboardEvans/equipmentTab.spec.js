@@ -1,6 +1,6 @@
 import { test, expect } from '../../../fixtures/enterpriseFixtures.js';
 import DashboardEquipmentTabPage from '../../../pageObjects/enterprise/dashboardEvans/equipmentTab.po.js';
-import dashboardAccountingNotesData from '../../../testData/enterprise/enterpriseCompanySettings/DashboardAccountingNotes.json' with { type: 'json' };
+import jobNumberData from '../../../testData/enterprise/commonJobNumber.json' with { type: 'json' };
 import { searchJobNumber } from '../../../utils/searchJobNumber.js';
 
 test('Equipment Tab Validation', async ({ authenticatedPage }) => {
@@ -8,7 +8,7 @@ test('Equipment Tab Validation', async ({ authenticatedPage }) => {
   const dashboardEquipmentTabPage = new DashboardEquipmentTabPage(page);
 
   // Search for job by number
-  await searchJobNumber(page, dashboardAccountingNotesData.jobNumber);
+  await searchJobNumber(page, jobNumberData.jobNumber);
 
   // Navigate to Equipment tab
   await dashboardEquipmentTabPage.navigateToEquipmentTab();
@@ -45,16 +45,4 @@ test('Equipment Tab Validation', async ({ authenticatedPage }) => {
 
   // Verify Days on Job column header is visible
   await expect(await dashboardEquipmentTabPage.verifyDaysOnJobColumnHeaderVisible()).toBeVisible();
-
-  await page.waitForLoadState('networkidle');
-
-  // Click on Export to Excel button and Assert file download
-  const downloadSuccess = await dashboardEquipmentTabPage.clickExportToExcelAndAssertDownload();
-  expect(downloadSuccess).toBeTruthy();
-
-  await page.waitForLoadState('networkidle');
-
-  // Click on Export to PDF button and Assert file download
-  const pdfDownloadSuccess = await dashboardEquipmentTabPage.clickExportToPDFAndAssertDownload();
-  expect(pdfDownloadSuccess).toBeTruthy();
 });

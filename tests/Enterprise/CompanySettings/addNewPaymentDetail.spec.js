@@ -1,6 +1,6 @@
 import { test } from '../../../fixtures/enterpriseFixtures.js';
 import EnterpriseAddPaymentPage from '../../../pageObjects/enterprise/companySetting/enterpriseAddPayment.po.js';
-import addNewPaymentData from '../../../testData/enterprise/enterpriseCompanySettings/AddNewPaymentData.json' with { type: 'json' };
+import jobNumberData from '../../../testData/enterprise/commonJobNumber.json' with { type: 'json' };
 import { searchJobNumber } from '../../../utils/searchJobNumber.js';
 
 test('Add New Payment Details', async ({ authenticatedPage }) => {
@@ -10,13 +10,13 @@ test('Add New Payment Details', async ({ authenticatedPage }) => {
   const addPaymentPage = new EnterpriseAddPaymentPage(page);
 
   // Search for job by number
-  await searchJobNumber(page, addNewPaymentData.jobNumber);
+  await searchJobNumber(page, jobNumberData.jobNumber);
 
   // Wait for Acct. Details image to be visible and click it
   await addPaymentPage.waitAndClickAcctDetailsImg();
 
   // Verify job number is displayed correctly
-  await addPaymentPage.assertJobNumberContains(addNewPaymentData.jobNumber);
+  await addPaymentPage.assertJobNumberContains(jobNumberData.jobNumber);
 
   // Click Payments button
   await addPaymentPage.clickPaymentsButton();

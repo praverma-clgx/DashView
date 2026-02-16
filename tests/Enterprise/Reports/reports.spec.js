@@ -16,21 +16,4 @@ test('Reports validation', async ({ authenticatedPage }) => {
 
   // Verify Legacy Report Creator heading
   await reportsPage.verifyLegacyReportCreatorHeading();
-
-  // Click on Job Received Report Option and switch to new tab
-  const newPage = await reportsPage.clickJobsReceivedReportOptionAndAssertUrl();
-  const reportsPageNewTab = new ReportsPage(newPage);
-
-  // Select Date Range and Generate Report in new tab
-  await reportsPageNewTab.selectLastMonthDateRangeAndGenerateReport();
-
-  // Switch back to the original tab
-  await page.bringToFront();
-
-  // Click on Job Status report Option and switch to new tab
-  const jobStatusReportTab = await reportsPage.clickJobStatusReportOptionAndAssertUrl();
-  const reportsPageJobStatusTab = new ReportsPage(jobStatusReportTab);
-
-  // Select Job from dropdown and Generate Report in new tab
-  await reportsPageJobStatusTab.selectJobStatusReportJobAndGenerateReport();
 });

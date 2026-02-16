@@ -1,6 +1,6 @@
 import { test } from '../../../fixtures/enterpriseFixtures.js';
 import EnterpriseAccountValidationPage from '../../../pageObjects/enterprise/companySetting/enterpriseAccountValidation.po.js';
-import accountValidationData from '../../../testData/enterprise/enterpriseCompanySettings/AccountValidationData.json' with { type: 'json' };
+import jobNumberData from '../../../testData/enterprise/commonJobNumber.json' with { type: 'json' };
 import { searchJobNumber } from '../../../utils/searchJobNumber.js';
 
 test('Accounting Report With POs Validation', async ({ authenticatedPage }) => {
@@ -10,13 +10,13 @@ test('Accounting Report With POs Validation', async ({ authenticatedPage }) => {
   const accountValidationPage = new EnterpriseAccountValidationPage(page);
 
   // Search for job by number
-  await searchJobNumber(page, accountValidationData.jobNumber);
+  await searchJobNumber(page, jobNumberData.jobNumber);
 
   // Wait for Acct. Details image to be visible and click it
   await accountValidationPage.waitAndClickAcctDetailsImg();
 
   // Verify job number is displayed correctly
-  await accountValidationPage.assertJobNumberContains(accountValidationData.jobNumber);
+  await accountValidationPage.assertJobNumberContains(jobNumberData.jobNumber);
 
   // Wait for and click accounting report with POs button
   await accountValidationPage.waitAndClickAccountingReportPOButton();

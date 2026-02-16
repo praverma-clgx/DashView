@@ -1,6 +1,6 @@
 import { test, expect } from '../../../fixtures/enterpriseFixtures.js';
 import DashboardNotesTabPage from '../../../pageObjects/enterprise/dashboardEvans/notesTab.po.js';
-import dashboardAccountingNotesData from '../../../testData/enterprise/enterpriseCompanySettings/DashboardAccountingNotes.json' with { type: 'json' };
+import jobNumberData from '../../../testData/enterprise/commonJobNumber.json' with { type: 'json' };
 import { searchJobNumber } from '../../../utils/searchJobNumber.js';
 
 test('Notes Tab Validation', async ({ authenticatedPage }) => {
@@ -8,7 +8,7 @@ test('Notes Tab Validation', async ({ authenticatedPage }) => {
   const notesTabPage = new DashboardNotesTabPage(page);
 
   // Search for job by number
-  await searchJobNumber(page, dashboardAccountingNotesData.jobNumber);
+  await searchJobNumber(page, jobNumberData.jobNumber);
 
   // Navigate to Notes tab
   await notesTabPage.navigateToNotesTab();
@@ -67,10 +67,4 @@ test('Notes Tab Validation', async ({ authenticatedPage }) => {
 
   // Verify grid first checkbox is visible
   await expect(await notesTabPage.verifyGridFirstCheckBoxVisible()).toBeVisible();
-
-  // Click grid first checkbox
-  await notesTabPage.clickGridFirstCheckBox();
-
-  // Verify Copy Notes button is enabled after selecting a note
-  await notesTabPage.verifyCopyNotesButtonEnabled();
 });

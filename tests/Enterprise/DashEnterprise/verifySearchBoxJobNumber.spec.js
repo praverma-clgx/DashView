@@ -1,5 +1,5 @@
 import { test } from '../../../fixtures/enterpriseFixtures.js';
-import jobData from '../../../testData/enterprise/enterpriseCompanySettings/DashboardAccountingNotes.json' with { type: 'json' };
+import jobNumberData from '../../../testData/enterprise/commonJobNumber.json' with { type: 'json' };
 import { searchJobNumber } from '../../../utils/searchJobNumber.js';
 
 test('Verify Advance Job Search by Job Number', async ({ authenticatedPage }) => {
@@ -8,5 +8,5 @@ test('Verify Advance Job Search by Job Number', async ({ authenticatedPage }) =>
   const page = authenticatedPage;
 
   // Search for job by number
-  await searchJobNumber(page, jobData.jobNumber);
+  await searchJobNumber(page, jobNumberData.jobNumber);
 });

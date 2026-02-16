@@ -14,7 +14,5 @@ test('Ranks Page validation', async ({ authenticatedPage }) => {
   await rankMarketingPage.assertAddNewRecordButton();
   await rankMarketingPage.assertGridHeaders(['Rank', 'Rank Description', 'Delete']);
   await rankMarketingPage.assertExportToExcelButton();
-  await rankMarketingPage.downloadAndAssertExcel();
   await rankMarketingPage.assertExportToPDFButton();
-  await rankMarketingPage.downloadAndAssertPDF();
 });

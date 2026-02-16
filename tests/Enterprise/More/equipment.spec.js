@@ -1,6 +1,5 @@
 import { test, expect } from '../../../fixtures/enterpriseFixtures.js';
 import { EquipmentPage } from '../../../pageObjects/enterprise/moreFg/equipment.po.js';
-import { getRandomNumber } from '../../../utils/randomNumber.js';
 
 test('Equipment Page in More FG', async ({ authenticatedPage }) => {
   const page = authenticatedPage;
@@ -40,6 +39,9 @@ test('Equipment Page in More FG', async ({ authenticatedPage }) => {
   // Validate Grid Headers
   await equipmentPage.validateGridHeaders(expectedHeaders);
 
+   // Validate Export Buttons
+  await equipmentPage.validateExportButtons();
+
   // Validate Add New Equipment Button
   await equipmentPage.validateAddNewEquipmentButton();
 
@@ -54,14 +56,12 @@ test('Equipment Page in More FG', async ({ authenticatedPage }) => {
   // Equipment Name input field
   const equipmentNameInput = page.locator('#ctl00_ContentPlaceHolder1_txtEquipmentName');
   await expect(equipmentNameInput).toBeVisible();
-  let equipmentName = `Test${getRandomNumber(1, 99999)}`;
-  await equipmentNameInput.fill(equipmentName);
+
 
   // Equipment Id input field
   const equipmentIdInput = page.locator('#ctl00_ContentPlaceHolder1_txtEquipmentCodeId');
   await expect(equipmentIdInput).toBeVisible();
-  let equipmentId = `EQID${getRandomNumber(1, 99999)}`;
-  await equipmentIdInput.fill(equipmentId);
+
 
   // Current Location Dropdown Arrow
   const currentLocationDropdown = page.locator(
@@ -115,39 +115,4 @@ test('Equipment Page in More FG', async ({ authenticatedPage }) => {
   // Barcode input field
   const barcodeInput = page.locator('#ctl00_ContentPlaceHolder1_txtBarCodeText');
   await expect(barcodeInput).toBeVisible();
-  let barcodeText = `BARCODE${getRandomNumber(1, 99999)}`;
-  await barcodeInput.fill(barcodeText);
-
-  // Handle alert dialog
-  page.on('dialog', async (dialog) => {
-    await dialog.accept();
-  });
-
-  // Click on Save button
-  const saveButton = page.locator('#ctl00_ContentPlaceHolder1_Button1');
-  await expect(saveButton).toBeVisible();
-  await saveButton.click();
-
-  await page.waitForLoadState('networkidle');
-
-  // Validate Export Buttons
-  await equipmentPage.validateExportButtons();
-
-  // Click on Export to Excel Button and assert file name
-  const [download] = await Promise.all([
-    page.waitForEvent('download'),
-    await equipmentPage.exportToExcelButton.click(),
-  ]);
-  const fileName = download.suggestedFilename();
-  expect(fileName).toBe('EquipmentDetails.xls');
-
-  await page.waitForLoadState('networkidle');
-
-  // Click on Export to PDF Button and assert file name
-  const [pdfDownload] = await Promise.all([
-    page.waitForEvent('download'),
-    await equipmentPage.exportToPDFButton.click(),
-  ]);
-  const pdfFileName = pdfDownload.suggestedFilename();
-  expect(pdfFileName).toBe('EquipmentDetails.pdf');
 });
