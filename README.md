@@ -14,8 +14,8 @@ Follow these steps to set up the testing framework on a new machine:
 
 ```bash
 # 1. Clone the repository (if not already done)
-git clone <repository-url>
-cd DashUI
+git clone https://github.com/praverma-clgx/DashView.git
+cd DashView
 
 # 2. Install dependencies
 npm install
@@ -34,19 +34,18 @@ npx playwright install --with-deps chromium
 2. Set the `TEST_ENV` variable to your desired environment:
 
    ```dotenv
-   TEST_ENV=stage  # Options: dkirc, stage, dev, qa, prod
+   TEST_ENV=first_general  # Options: first_general, paul_devis, service_master, evans
    ```
 
 3. Add the corresponding environment variables with valid values:
-   - For `TEST_ENV=stage`, add these variables:
+   - For `TEST_ENV=first_general`, add these variables:
      ```dotenv
-     STAGE_ENTERPRISE_LOGIN_URL=https://your-enterprise-url
-     STAGE_ADMIN_LOGIN_URL=https://your-admin-url
-     STAGE_ENTERPRISE_COMPANY_ID=your-company-id
-     STAGE_ENTERPRISE_USERNAME=your-username
-     STAGE_ENTERPRISE_PASSWORD=your-password
+     FIRST_GENERAL_ENTERPRISE_LOGIN_URL=https://your-enterprise-url
+     FIRST_GENERAL_ENTERPRISE_COMPANY_ID=your-company-id
+     FIRST_GENERAL_ENTERPRISE_USERNAME=your-username
+     FIRST_GENERAL_ENTERPRISE_PASSWORD=your-password
      ```
-   - For other environments (dkirc, dev, qa, prod), use the same pattern with the environment prefix
+   - For other environments (paul_devis, service_master, evans), use the same pattern with the environment prefix
 
 4. **Save the file** after making changes
 
@@ -72,10 +71,11 @@ Error: page.goto: url: expected string, got undefined
 **Solution**:
 
 1. Check your `.env` file exists in the root directory
-2. Verify `TEST_ENV` is set (e.g., `TEST_ENV=stage`)
+2. Verify `TEST_ENV` is set (e.g., `TEST_ENV=first_general`)
 3. Ensure the environment-specific variables are configured:
-   - If `TEST_ENV=stage`, check `STAGE_ENTERPRISE_LOGIN_URL` is set
-   - If `TEST_ENV=dkirc`, check `DKIRC_ENTERPRISE_LOGIN_URL` is set
+   - If `TEST_ENV=first_general`, check `FIRST_GENERAL_ENTERPRISE_LOGIN_URL` is set
+   - If `TEST_ENV=paul_devis`, check `PAUL_DEVIS_ENTERPRISE_LOGIN_URL` is set
+   - etc.
 4. Make sure there are no typos in variable names
 5. Restart your terminal/IDE after modifying `.env`
 
@@ -102,84 +102,51 @@ npx playwright install --with-deps chromium
 ## 📁 Project Structure
 
 ```
-DashUI_FrameworkGit/
+DashView/
 ├── .env                    # Environment configuration (IMPORTANT! - Create this file)
-├── azure-pipelines.yml    # CI/CD pipeline configuration
 ├── eslint.config.js       # ESLint configuration
 ├── global-setup.js        # Authentication setup (loads .env automatically)
 ├── global-teardown.js     # Cleanup after test execution
 ├── playwright.config.js   # Playwright configuration
-├── package.json          # Dependencies and scripts
-├── README.md             # This file - Quick start guide
-├── zSetup                # Detailed setup guide for new machines
-├── config/               # Configuration files
+├── package.json           # Dependencies and scripts
+├── README.md              # This file - Quick start guide
+├── zSetup                 # Detailed setup guide for new machines
+├── config/                # Configuration files
 │   ├── browser.config.js       # Browser settings
 │   ├── environment.config.js   # Environment variables loader
 │   └── timeout.config.js       # Centralized timeout configuration
-├── docs/                 # Documentation
+├── docs/                  # Documentation
 │   ├── CI-CD-SETUP.md
-│   ├── NOTIFICATION_HANDLING.md
-│   ├── NOTIFICATION_IMPLEMENTATION.md
-│   ├── NOTIFICATION_QUICK_REFERENCE.md
-│   ├── POM_STANDARD.md
-│   └── GLOBAL_TEARDOWN_GUIDE.md
-├── e2e/                  # Example test files
-├── fixtures/             # Test fixtures (with auto notification handling)
-│   ├── adminFixtures.js
-│   ├── enterpriseFixtures.js
-│   └── mixedFixtures.js
-├── pageObjects/          # Page Object Models
-│   ├── admin/
-│   ├── enterprise/
-│   └── enterpriseAndAdmin/
-├── playwright-report/    # Generated HTML test reports
-├── scripts/              # Utility scripts
-│   ├── cleanup.js
-│   ├── find-unused-imports.js
-│   ├── setup.ps1
-│   ├── verify-imports.js
-│   └── verify-setup.js
-├── test-results/         # Test artifacts (screenshots, traces, videos)
-├── testData/             # Test data files (JSON)
-│   ├── admin/
+│   └── ...
+├── e2e/                   # Example test files
+├── fixtures/              # Test fixtures
+│   └── enterpriseFixtures.js
+├── pageObjects/           # Page Object Models
 │   └── enterprise/
-├── tests/                # Test files
-│   ├── Admin/
-│   ├── Enterprise/
-│   └── EnterpriseAndAdmin/
-└── utils/                # Utility helpers
-    ├── adminClaimGenerator.js
+├── playwright-report/     # Generated HTML test reports
+├── scripts/               # Utility scripts
+│   ├── cleanup.js
+│   └── ...
+├── test-results/          # Test artifacts (screenshots, traces, videos)
+├── testData/              # Test data files (JSON)
+│   └── enterprise/
+├── tests/                 # Test files
+│   └── Enterprise/
+└── utils/                 # Utility helpers
     ├── enterpriseClaimGenerator.js
     ├── enterpriseJobGenerator.js
     ├── helpers.js
-    ├── notificationHelper.js
     ├── randomNumber.js
     └── searchJobNumber.js
 ```
 
 ## ✨ Key Features
 
-### 🔔 Automatic Notification Handling
-
-The framework includes **automatic notification dismissal** to prevent pop-ups from blocking test execution:
-
-- ✅ **Zero configuration required** - Works automatically on all tests
-- ✅ **3-layer protection** - Fixture level, navigation level, manual control
-- ✅ **8 detection strategies** - Finds notifications using multiple selectors
-- ✅ **Centralized timeout management** - Consistent timeout values across framework
-
-**Learn more:** See [Notification Handling Guide](docs/NOTIFICATION_HANDLING.md)
-
-**Quick example:**
-```javascript
-test('My test', async ({ authenticatedPage }) => {
-  const page = authenticatedPage;
-  // Notifications auto-dismissed ✅
-  
-  // Optional: Manual dismissal if needed
-  await page.notificationHelper.dismissAllNotifications();
-});
-```
+- 🔒 Enterprise-only flows (no admin logic required)
+- 🔔 Automatic notification handling
+- 🧪 Playwright-based E2E testing
+- 📊 HTML and artifact reporting
+- 🛠️ Utility scripts for setup, cleanup, and verification
 
 ## 🧪 Running Tests
 
@@ -189,12 +156,6 @@ npm test
 
 # Run only enterprise tests
 npm run test:enterprise
-
-# Run only admin tests
-npm run test:admin
-
-# Run only mixed tests (enterprise + admin)
-npm run test:mixed
 
 # Run with UI mode (interactive)
 npm run test:ui
@@ -206,7 +167,7 @@ npm run test:headed
 npm run test:ci
 
 # Run specific test file
-npx playwright test tests/Admin/Administration/homePageValidation.spec.js
+npx playwright test tests/Enterprise/Administration/acceptJob.spec.js
 
 # Run with more workers (parallel execution)
 npx playwright test --workers=4
@@ -218,18 +179,23 @@ npx playwright test --workers=4
 
 The framework supports multiple environments configured via `TEST_ENV`:
 
-- `dkirc` - DKIRC environment
-- `stage` - Staging environment
-- `dev` - Development environment
-- `qa` - QA environment
-- `prod` - Production environment
+- `first_general` - First General environment
+- `paul_devis` - Paul Devis environment
+- `service_master` - Service Master environment
+- `evans` - Evans environment
 
 ### Switching Environments
 
 Edit `.env` file:
 
 ```dotenv
-TEST_ENV=stage  # Change this to switch environments
+TEST_ENV=first_general  # Change this to switch environments
+```
+
+Or use the provided script to run all environments sequentially:
+
+```bash
+node run-all-envs.js
 ```
 
 ## 📊 Viewing Test Results
@@ -246,37 +212,12 @@ Reports are generated in:
 - `playwright-report/` - HTML reports
 - `test-results/` - Test artifacts and screenshots
 
-## � Utility Scripts
-
-```bash
-# Install all dependencies and browsers (complete setup)
-npm run setup
-
-# Verify your setup is correct
-npm run verify-setup
-
-# Clean up test artifacts
-npm run cleanup
-
-# Full cleanup (including Playwright cache)
-npm run cleanup:full
-
-# Clean only reports
-npm run cleanup:reports
-
-# Format code with Prettier
-npm run format
-
-# Lint and fix code with ESLint
-npm run lint
-```
-
 ## 🐛 Debugging
 
 ### Debug a specific test
 
 ```bash
-npx playwright test --debug tests/Admin/Administration/homePageValidation.spec.js
+npx playwright test --debug tests/Enterprise/Administration/acceptJob.spec.js
 ```
 
 ### Generate trace
@@ -297,14 +238,14 @@ npx playwright show-trace trace.zip
 ### Using Page Object Model
 
 ```javascript
-import { expect, test } from '../../../fixtures/adminFixtures.js';
-import HomePageValidation from '../../../pageObjects/admin/adminstration/homePageValidation.po.js';
+import { expect, test } from '../../fixtures/enterpriseFixtures.js';
+import AcceptJobPage from '../../pageObjects/enterprise/Administration/acceptJob.po.js';
 
 test('My test', async ({ authenticatedPage }) => {
   const page = authenticatedPage;
-  const homePage = new HomePageValidation(page);
+  const acceptJobPage = new AcceptJobPage(page);
 
-  await homePage.navigateToHomePage();
+  await acceptJobPage.navigateToAcceptJob();
   // ... rest of test
 });
 ```
