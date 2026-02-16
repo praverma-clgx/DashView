@@ -1,0 +1,28 @@
+{
+  "estimates": [
+    {
+      "type": "Main",
+      "amount": 45500.0,
+      "description": "Test estimate description",
+      "fileName": "Final_Draft.pdf"
+    },
+    {
+      "type": "Supplement",
+      "amount": 30500.0,
+      "description": "Supplemental estimate",
+      "fileName": "Final_Draft.pdf"
+    },
+    {
+      "type": "Main",
+      "amount": 99999999999,
+      "description": "Test estimate with max limit amount",
+      "fileName": "Final_Draft.pdf"
+    },
+    {
+      "type": "Supplement",
+      "amount": 99999999999,
+      "description": "Supplemental estimate",
+      "fileName": "Final_Draft.pdf"
+    }
+  ]
+}

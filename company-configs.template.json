@@ -1,0 +1,42 @@
+{
+  "_comment": "Each environment section uses the URLs defined in .env file for that environment",
+  "_info": "Only specify companyId, username, and password - URLs come from .env",
+  "_prod_url": "From .env: PROD_ENTERPRISE_LOGIN_URL",
+  "_stage_url": "From .env: STAGE_ENTERPRISE_LOGIN_URL",
+  "_dkirc_url": "From .env: DKIRC_ENTERPRISE_LOGIN_URL",
+  
+  "prod": [
+    {
+      "companyId": "YOUR_COMPANY_ID_1",
+      "name": "Company Display Name 1",
+      "username": "YOUR_USERNAME",
+      "password": "YOUR_PASSWORD",
+      "description": "PROD Environment - Description"
+    },
+    {
+      "companyId": "YOUR_COMPANY_ID_2",
+      "name": "Company Display Name 2",
+      "username": "YOUR_USERNAME",
+      "password": "YOUR_PASSWORD",
+      "description": "PROD Environment - Description"
+    }
+  ],
+  "stage": [
+    {
+      "companyId": "YOUR_COMPANY_ID",
+      "name": "Stage Test Company",
+      "username": "YOUR_USERNAME",
+      "password": "YOUR_PASSWORD",
+      "description": "STAGE Environment - Description"
+    }
+  ],
+  "dkirc": [
+    {
+      "companyId": "YOUR_COMPANY_ID",
+      "name": "DKIRC Test Company",
+      "username": "YOUR_USERNAME",
+      "password": "YOUR_PASSWORD",
+      "description": "DKIRC Environment - Description"
+    }
+  ]
+}
